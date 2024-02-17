@@ -1,0 +1,16 @@
+0011 0000 0000 0000     ; start teh program at location x3000
+0101 001 001 1 00000    ; clear R1, to be used as a counter
+0101 010 010 1 00000    ; clear R2, to store the operand of the AND instruction at each cycle
+0101 010 011 1 00000    ; clear R3, to store B as a program halting criterion
+0001 010 010 1 00001    ; Initialize R2 with x0001 to check the last bit as a start
+0010 100 011111011      ; load R4 with A
+0010 011 011111011      ; load R3 with B
+0000 110 000000110      ; if B is zero or negative number, end the program directly
+0101 101 100 0 00 010   ; use an AND operation to justify whether the current target bit is 1 or not
+0000 010 000000001      ; if the result of the AND operation is 0, do nothing with the counter,else counter++
+0001 001 001 1 00001    ; counter++
+0001 010 010 0 00 010   ; the specific bit that stored 1 Shift left
+0001 011 011 1 11111    ; R3--
+0000 001 111111010      ; if R3 > 0, start the next cycle, else jump out of the loop
+0011 001 011110100      ; store the data of the counter in x3102
+1111 0000 00100101      ; halt
